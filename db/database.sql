@@ -4,7 +4,7 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 SELECT * FROM pg_available_extensions;
 
-CREATE TABLE fsusers(
+CREATE TABLE users(
   user_id uuid DEFAULT uuid_generate_v4(),
   user_name VARCHAR(255) NOT NULL,
   user_email VARCHAR(255) NOT NULL UNIQUE,
@@ -18,8 +18,13 @@ CREATE TABLE todos(
   user_id UUID ,
   description VARCHAR(255) NOT NULL,
   PRIMARY KEY (todo_id),
-  FOREIGN KEY (user_id) REFERENCES fsusers(user_id)
+  FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
 
-INSERT INTO todos (user_id,description) VALUES ('6c218ac4-fbd0-4a2b-a759-55df8d34275b','Hello');
+INSERT INTO todos (user_id,description) VALUES ('b074db3c-3db8-4e71-9850-3271528a9eb4','Hello');
 
+
+
+--heroku addons:create heroku-postgresql:hobby-dev
+-- heroku pg:info
+-- heroku pg:psql
