@@ -7,7 +7,7 @@ router.get("/", authorisation, async (req, res) => {
   try {
     // console.log(req.user);
     const data = await pool.query(
-      "SELECT u.user_id, u.user_name,u.user_email,t.todo_id,t.description FROM fsusers as u LEFT JOIN todos as t ON u.user_id = t.user_id WHERE u.user_id = $1 ORDER BY t.todo_id",
+      "SELECT u.user_id, u.user_name,u.user_email,t.todo_id,t.description FROM users as u LEFT JOIN todos as t ON u.user_id = t.user_id WHERE u.user_id = $1 ORDER BY t.todo_id",
       [req.user]
     );
     res.json(data.rows);

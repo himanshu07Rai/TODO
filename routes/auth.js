@@ -11,7 +11,7 @@ const authorisation = require("../middleware/authorisation");
 router.get("/", authorisation, async (req, res) => {
   try {
     const user = await pool.query(
-      "SELECT user_id,user_name,user_email FROM fsusers WHERE user_id = $1",
+      "SELECT user_id,user_name,user_email FROM users WHERE user_id = $1",
       [req.user]
     );
     res.json(user.rows[0]);
@@ -25,10 +25,9 @@ router.post("/register", validInfo, async (req, res) => {
   try {
     const { name, email, password } = req.body;
 
-    const user = await pool.query(
-      "SELECT * FROM fsusers WHERE user_email = $1",
-      [email]
-    );
+    const user = await pool.query("SELECT * FROM users WHERE user_email = $1", [
+      email,
+    ]);
     // res.json(user.rows);
 
     if (user.rows.length > 0) {
@@ -39,7 +38,7 @@ router.post("/register", validInfo, async (req, res) => {
     const bcryptPassword = await bcrypt.hash(password, salt);
 
     const newUser = await pool.query(
-      "INSERT INTO fsusers (user_name,user_email,user_password) VALUES ($1,$2,$3) RETURNING *",
+      "INSERT INTO users (user_name,user_email,user_password) VALUES ($1,$2,$3) RETURNING *",
       [name, email, bcryptPassword]
     );
     const token = jwtGenrator(newUser.rows[0].user_id);
@@ -53,7 +52,7 @@ router.post("/register", validInfo, async (req, res) => {
 router.post("/login", validInfo, async (req, res) => {
   const { email, password } = req.body;
 
-  const user = await pool.query("SELECT * FROM fsusers WHERE user_email = $1", [
+  const user = await pool.query("SELECT * FROM users WHERE user_email = $1", [
     email,
   ]);
 
