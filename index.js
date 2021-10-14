@@ -1,29 +1,34 @@
 const express = require("express");
 const cors = require("cors");
-const path = require("path");
+const createError = require("http-errors");
 
 const app = express();
 
 app.use(express.json());
-const corsOptions = { origin: process.env.URL || "*" };
-app.use(cors(corsOptions));
+app.use(cors());
 
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "client/build")));
-}
+app.get("/", (req, res) => {
+  res.send("🚀 Server running 🚀");
+});
 
 app.use("/auth", require("./routes/auth"));
 app.use("/dashboard", require("./routes/dashboard"));
 app.use("/todos", require("./routes/todos"));
 
-const PORT = process.env.PORT || 4000;
-
-// catch all
-
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "client/build/index.html"));
+app.use((req, res, next) => {
+  next(createError(404, "Not found"));
 });
 
-app.listen(PORT, () => {
-  console.log(`Running on port ${PORT}`);
+app.use((err, req, res, next) => {
+  res.status(err.status || 500);
+  res.send({
+    error: {
+      status: err.status || 500,
+      message: err.message,
+    },
+  });
+});
+
+app.listen(5000, () => {
+  console.log("Running on port 5000");
 });

@@ -1,5 +1,9 @@
+const createError = require("http-errors");
+
 module.exports = (req, res, next) => {
   const { email, name, password } = req.body;
+
+  // if (!email || !name || !password) next(createError(400, "Insufficient data"));
 
   const validEmail = (userEmail) => {
     return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(userEmail);
@@ -7,11 +11,13 @@ module.exports = (req, res, next) => {
 
   if (req.path === "/register") {
     if (![email, name, password].every(Boolean)) {
-      return res.status(401).json("Missing Credentials");
+      return next(createError(400, "Missing Credentials"));
     } else if (!validEmail(email)) {
-      return res.status(401).json("Invalid Email");
+      return next(createError(400, "Invalid Email"));
     } else if (password.length < 6) {
-      return res.status(401).json("Password should atleast have 6 characters");
+      return next(
+        createError(400, "Password should atleast have 6 characters")
+      );
     }
   } else if (req.path === "/login") {
     if (![email, password].every(Boolean)) {
