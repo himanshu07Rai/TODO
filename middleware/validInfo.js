@@ -3,8 +3,6 @@ const createError = require("http-errors");
 module.exports = (req, res, next) => {
   const { email, name, password } = req.body;
 
-  // if (!email || !name || !password) next(createError(400, "Insufficient data"));
-
   const validEmail = (userEmail) => {
     return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(userEmail);
   };

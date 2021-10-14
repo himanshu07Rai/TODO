@@ -7,12 +7,11 @@ module.exports = (req, res, next) => {
     const token = req.header("auth-token");
 
     if (!token) {
-      // return res.status(403).json("No token, authorisation denied");
       next(createError(403, "No token, authorisation denied"));
     }
 
     const payload = jwt.verify(token, process.env.jwtSecret);
-    // console.log("payload : ", payload);
+
     req.user = payload.user.id;
     next();
   } catch (error) {
