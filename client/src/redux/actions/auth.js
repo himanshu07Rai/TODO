@@ -1,4 +1,5 @@
 import axios from "axios";
+import { v4 as uuidv4 } from "uuid";
 import setAuthToken from "../../utils/setAuthToken";
 
 import {
@@ -9,23 +10,38 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
+  SET_ALERT,
+  REMOVE_ALERT,
 } from "../types";
 
 export const loadUser = () => async (dispatch) => {
+  const id = uuidv4();
   // console.log(localStorage.token);
   if (localStorage.token) {
     setAuthToken(localStorage.token);
   }
   try {
     const res = await axios.get("/auth");
+    console.log(res.data);
     dispatch({
       type: USER_LOADED,
       payload: res.data,
     });
   } catch (error) {
     dispatch({
+      type: SET_ALERT,
+      payload: { id, msg: "Not authenticated", type: "Warning" },
+    });
+
+    dispatch({
       type: AUTH_ERROR,
     });
+    setTimeout(() => {
+      dispatch({
+        type: REMOVE_ALERT,
+        payload: id,
+      });
+    }, 3000);
   }
 };
 
@@ -63,6 +79,7 @@ export const login = (inputs) => async (dispatch) => {
   };
 
   const body = JSON.stringify(inputs);
+  console.log("body:", body);
 
   try {
     const res = await axios.post("/auth/login", body, config);
@@ -73,8 +90,21 @@ export const login = (inputs) => async (dispatch) => {
     });
     dispatch(loadUser());
     // localStorage.setItem("token", res);
-  } catch (error) {
-    console.log(error.message);
+  } catch (err) {
+    const id = uuidv4();
+    const error = err.response.data.error;
+    console.log(error);
+    dispatch({
+      type: SET_ALERT,
+      payload: { id, msg: error.message, type: "Error" },
+    });
+
+    setTimeout(() => {
+      dispatch({
+        type: REMOVE_ALERT,
+        payload: id,
+      });
+    }, 3000);
     dispatch({
       type: LOGIN_FAIL,
     });

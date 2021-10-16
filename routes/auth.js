@@ -61,12 +61,14 @@ router.post("/register", validInfo, async (req, res, next) => {
 router.post("/login", validInfo, async (req, res, next) => {
   try {
     const { email, password } = req.body;
+    console.log(req.body);
 
     const user = await prisma.user.findUnique({
       where: {
         user_email: email,
       },
     });
+    console.log("user");
 
     if (!user) {
       next(createError(401, "Invalid Credentials"));
@@ -81,7 +83,7 @@ router.post("/login", validInfo, async (req, res, next) => {
       res.json(token);
     }
   } catch (error) {
-    next(createError(500, "Sever Error"));
+    next(createError(500, error.message));
   }
 });
 

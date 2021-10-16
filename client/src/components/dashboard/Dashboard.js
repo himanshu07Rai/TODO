@@ -9,18 +9,19 @@ const Dashboard = () => {
   // const [data, setData] = useState(null);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
-  const fetchData = async () => {
-    // console.log(axios.defaults.headers.common["auth-token"]);
 
-    // const res = await axios.get("http://localhost:4000/todos");
-    // console.log(res.data);
-    // setData(res.data);
-    dispatch(loadData());
-  };
   useEffect(() => {
     // console.log("j");
+    const fetchData = async () => {
+      // console.log(axios.defaults.headers.common["auth-token"]);
+
+      // const res = await axios.get("http://localhost:4000/todos");
+      // console.log(res.data);
+      // setData(res.data);
+      dispatch(loadData());
+    };
     fetchData();
-  }, [user]);
+  }, [dispatch, user]);
 
   const loading = useSelector((state) => state.auth.loading);
   const data = useSelector((state) => state.dashboard.todos);

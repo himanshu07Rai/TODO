@@ -9,7 +9,7 @@ import {
   Button,
 } from "./syledComponents";
 import { login } from "../redux/actions/auth";
-
+import Alert from "./Alert";
 const Login = () => {
   const dispatch = useDispatch();
 
@@ -39,6 +39,7 @@ const Login = () => {
 
   return (
     <Container>
+      <Alert />
       <Card>
         <h2>Log in</h2>
         <StyledForm onSubmit={(e) => onSubmit(e)}>
