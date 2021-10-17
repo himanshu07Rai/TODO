@@ -1,11 +1,12 @@
 import React, { useEffect } from "react";
 import { loadUser } from "./redux/actions/auth";
 import Routes from "./Routes";
-import store from "./redux/store";
+import { useDispatch } from "react-redux";
 
 const App = () => {
+  const dispatch = useDispatch();
   useEffect(() => {
-    store.dispatch(loadUser());
+    dispatch(loadUser());
   }, []);
   return (
     <div>

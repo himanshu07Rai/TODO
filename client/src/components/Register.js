@@ -28,27 +28,6 @@ const Register = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    // console.log(inputs);
-    // const config = {
-    //   headers: {
-    //     "Content-type": "Application/json",
-    //   },
-    // };
-
-    // const body = JSON.stringify(inputs);
-
-    // try {
-    //   const res = await axios.post(
-    //     "http://localhost:4000/auth/register",
-    //     body,
-    //     config
-    //   );
-    //   console.log(res.data);
-
-    //   localStorage.setItem("token", res);
-    // } catch (error) {
-    //   console.log(error.message);
-    // }
     dispatch(register(inputs));
 
     setInputs({

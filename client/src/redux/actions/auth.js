@@ -21,6 +21,7 @@ export const loadUser = () => async (dispatch) => {
   }
   try {
     const res = await axios.get("/auth");
+    console.log("from ", res.data);
     dispatch({
       type: USER_LOADED,
       payload: res.data,
@@ -78,18 +79,22 @@ export const login = (inputs) => async (dispatch) => {
   };
 
   const body = JSON.stringify(inputs);
-  console.log("body:", body);
+  // console.log("body:", body);
 
   try {
     const res = await axios.post("/auth/login", body, config);
-    console.log(res.data);
+    // console.log(res.data);  token
     dispatch({
       type: LOGIN_SUCCESS,
       payload: res.data,
     });
+    console.log("1");
     dispatch(loadUser());
+    console.log("2");
+
     // localStorage.setItem("token", res);
   } catch (err) {
+    console.log(err.response.data);
     const id = uuidv4();
     const error = err.response.data.error;
     console.log(error);

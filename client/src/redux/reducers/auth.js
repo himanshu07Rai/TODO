@@ -10,9 +10,9 @@ import {
 
 const initialState = {
   token: localStorage.getItem("token"),
-  isAuthenticated: null,
+  isAuthenticated: false,
   loading: true,
-  user: null,
+  user: {},
 };
 
 const func = (state = initialState, { type, payload }) => {
@@ -31,8 +31,8 @@ const func = (state = initialState, { type, payload }) => {
       return {
         ...state,
         token: payload,
-        isAuthenticated: true,
         loading: false,
+        // isAuthenticated: true,
       };
     case REGISTER_FAIL:
     case LOGIN_FAIL:

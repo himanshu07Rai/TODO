@@ -29,7 +29,6 @@ const Login = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     dispatch(login(inputs));
-    // console.log(inputs);
   };
 
   // Redirect if logged in
