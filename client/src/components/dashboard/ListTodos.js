@@ -28,6 +28,7 @@ const StyledButton = styled.button`
 `;
 
 const ListTodos = ({ todos }) => {
+  console.log("td", todos);
   const localTodos = todos.filter((todo) => todo.todo_id !== null);
   const dispatch = useDispatch();
   // const toEdit = useSelector((state) => state.dashboard.toEdit);

@@ -17,6 +17,7 @@ const initialState = {
 const func = (state = initialState, { type, payload }) => {
   switch (type) {
     case DATA_LOADED:
+      console.log(payload);
       return {
         ...state,
         todos: payload,

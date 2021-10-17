@@ -17,15 +17,11 @@ export const textChange = (text) => (dispatch) => {
 
 export const loadData = () => async (dispatch) => {
   try {
-    // console.log(axios.defaults.headers.common["auth-token"]);
-
-    // const res = await axios.get("http://localhost:4000/todos");
-
     const res = await axios.get("/todos");
-    // console.log(res.data);
+    // console.log("sdfsf", [...res.data.Todo]);
     dispatch({
       type: DATA_LOADED,
-      payload: res.data,
+      payload: res.data.Todo,
     });
   } catch (error) {
     console.log(error.message);

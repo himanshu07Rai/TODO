@@ -15,19 +15,18 @@ import {
 } from "../types";
 
 export const loadUser = () => async (dispatch) => {
-  const id = uuidv4();
   // console.log(localStorage.token);
   if (localStorage.token) {
     setAuthToken(localStorage.token);
   }
   try {
     const res = await axios.get("/auth");
-    console.log(res.data);
     dispatch({
       type: USER_LOADED,
       payload: res.data,
     });
   } catch (error) {
+    const id = uuidv4();
     dispatch({
       type: SET_ALERT,
       payload: { id, msg: "Not authenticated", type: "Warning" },
@@ -41,7 +40,7 @@ export const loadUser = () => async (dispatch) => {
         type: REMOVE_ALERT,
         payload: id,
       });
-    }, 3000);
+    }, 1000);
   }
 };
 

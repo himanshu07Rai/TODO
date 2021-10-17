@@ -10,8 +10,6 @@ const userTodos = async (req, res, next) => {
         user_id: req.user,
       },
       select: {
-        user_email: true,
-        user_name: true,
         Todo: true,
       },
     });
