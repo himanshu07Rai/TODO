@@ -1,5 +1,4 @@
-const express = require("express");
-const router = express.Router();
+const router = require("express").Router();
 const createError = require("http-errors");
 const authorisation = require("../middleware/authorisation");
 const prisma = require("../prisma/client");
