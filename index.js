@@ -1,11 +1,17 @@
 const express = require("express");
 const cors = require("cors");
+const path = require("path");
 const createError = require("http-errors");
 
 const app = express();
 
 app.use(express.json());
-app.use(cors());
+const corsOptions = { origin: process.env.URL || "*" };
+app.use(cors(corsOptions));
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "client/build")));
+}
 
 app.get("/", (req, res) => {
   res.send("🚀 Server running 🚀");
@@ -30,6 +36,10 @@ app.use((err, req, res, next) => {
 });
 
 const PORT = process.env.PORT || 5000;
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "client/build/index.html"));
+});
 
 app.listen(PORT, () => {
   console.log("Running on port 5000");

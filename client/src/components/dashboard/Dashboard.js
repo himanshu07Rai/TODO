@@ -14,7 +14,7 @@ const Dashboard = () => {
       dispatch(loadData());
     };
     fetchData();
-  }, [user]);
+  }, [user, dispatch]);
 
   const loading = useSelector((state) => state.auth.loading);
   const data = useSelector((state) => state.dashboard.todos);
