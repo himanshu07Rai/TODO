@@ -5,7 +5,7 @@ const axiosApiInstance = axios.create();
 axiosApiInstance.interceptors.request.use(
   async (config) => {
     config.headers = {
-      Authorization: localStorage.getItem("token"),
+      "auth-token": localStorage.getItem("token"),
     };
     return config;
   },
