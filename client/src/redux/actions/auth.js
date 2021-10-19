@@ -22,7 +22,7 @@ export const loadUser = () => async (dispatch) => {
   // }
   try {
     const res = await axiosApiInstance.get("/auth");
-    console.log("from ", res.data);
+    // console.log("from ", res.data);
     dispatch({
       type: USER_LOADED,
       payload: res.data,
