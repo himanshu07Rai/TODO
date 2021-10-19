@@ -18,7 +18,6 @@ const initialState = {
 const func = (state = initialState, { type, payload }) => {
   switch (type) {
     case USER_LOADED:
-      console.log("abc", payload);
       return {
         ...state,
         isAuthenticated: true,
