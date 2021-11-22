@@ -9,17 +9,17 @@ app.use(express.json());
 const corsOptions = { origin: process.env.URL || "*" };
 app.use(cors(corsOptions));
 
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "client/build")));
-}
+// if (process.env.NODE_ENV === "production") {
+app.use(express.static(path.join(__dirname, "client/build")));
+// }
 
-app.get("/", (req, res) => {
+app.get("/api", (req, res) => {
   res.send("🚀 Server running 🚀");
 });
 
-app.use("/auth", require("./routes/auth"));
-app.use("/dashboard", require("./routes/dashboard"));
-app.use("/todos", require("./routes/todos"));
+app.use("/api/auth", require("./routes/auth"));
+app.use("/api/dashboard", require("./routes/dashboard"));
+app.use("/api/todos", require("./routes/todos"));
 
 app.use((req, res, next) => {
   next(createError(404, "Not found"));

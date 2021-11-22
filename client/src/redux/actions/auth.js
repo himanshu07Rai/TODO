@@ -1,5 +1,5 @@
 import axios from "axios";
-import axiosApiInstance from "../../utils/interceptor";
+// import axiosApiInstance from "../../utils/interceptor";
 import { v4 as uuidv4 } from "uuid";
 import setAuthToken from "../../utils/setAuthToken";
 
@@ -17,11 +17,11 @@ import {
 
 export const loadUser = () => async (dispatch) => {
   // console.log(localStorage.token);
-  // if (localStorage.token) {
-  //   setAuthToken(localStorage.token);
-  // }
+  if (localStorage.token) {
+    setAuthToken(localStorage.token);
+  }
   try {
-    const res = await axiosApiInstance.get("/auth");
+    const res = await axios.get("/auth");
     // console.log("from ", res.data);
     dispatch({
       type: USER_LOADED,
