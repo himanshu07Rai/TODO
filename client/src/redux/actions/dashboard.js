@@ -17,7 +17,7 @@ export const textChange = (text) => (dispatch) => {
 
 export const loadData = () => async (dispatch) => {
   try {
-    const res = await axios.get("/todos");
+    const res = await axios.get("/api/todos");
     // console.log("sdfsf", [...res.data.Todo]);
     dispatch({
       type: DATA_LOADED,
@@ -40,7 +40,7 @@ export const addTodo = (desc) => async (dispatch) => {
     };
 
     const body = JSON.stringify(desc);
-    const res = await axios.post("/todos", body, config);
+    const res = await axios.post("/api/todos", body, config);
     console.log(res.data);
     dispatch({
       type: ADD_TODO,
@@ -54,7 +54,7 @@ export const addTodo = (desc) => async (dispatch) => {
 export const deleteTodo = (id) => async (dispatch) => {
   try {
     // console.log(id);
-    await axios.delete(`/todos/${id}`);
+    await axios.delete(`/api/todos/${id}`);
     // console.log(res.data);
     dispatch({
       type: TODO_DELETED,
@@ -90,7 +90,7 @@ export const editTodo =
 
       const body = JSON.stringify({ description });
       console.log(body);
-      const res = await axios.put(`/todos/${selectedId}`, body, config);
+      const res = await axios.put(`/api/todos/${selectedId}`, body, config);
       console.log(res.data);
       dispatch({
         type: EDIT_TODO,

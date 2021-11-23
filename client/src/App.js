@@ -4,6 +4,8 @@ import Routes from "./Routes";
 import { useDispatch } from "react-redux";
 import setAuthToken from "./utils/setAuthToken";
 
+import "./App.css";
+
 const App = () => {
   const dispatch = useDispatch();
   useEffect(() => {

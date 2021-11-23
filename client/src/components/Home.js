@@ -10,11 +10,22 @@ const Home = () => {
     return <Redirect to="/dashboard" />;
   }
   return (
-    <div>
-      <Alert />
-      <Link to="/register">Register</Link>
-      <Link to="/login">Login</Link>
-    </div>
+    <section className="landing">
+      <div className="dark-overlay">
+        <div className="landing-inner">
+          <h1 className="x-large">Lets Todo It !</h1>
+          <p className="lead">Structure your day and conquer every problem</p>
+          <div className="buttons">
+            <Link className="btn btn-primary" to="/register">
+              Register
+            </Link>
+            <Link to="/login" className="btn btn-light">
+              Login
+            </Link>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 };
 

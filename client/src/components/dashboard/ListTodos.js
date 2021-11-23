@@ -2,33 +2,40 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { deleteTodo, selectTodo } from "../../redux/actions/dashboard";
-
+import { AiFillDelete } from "react-icons/ai";
+import { FaEdit } from "react-icons/fa";
 const StyledUl = styled.ul`
-  padding: 0;
+  display: flex;
+  flex-direction: column;
+  position: relative;
 `;
 
 const StyledLi = styled.li`
   display: flex;
-  list-style: none;
-  overflow: hidden;
-  width: 100%;
-  margin-bottom: 10px;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
-`;
-const StyledButton = styled.button`
-  float: right;
-  background: palevioletred;
+  margin: 4px auto;
   color: #fff;
-  border-radius: 3px;
-  border: 2px solid palevioletred;
-  padding: 3px 10px;
-  outline: none;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 118, 20, 1) 0%,
+    rgba(255, 84, 17, 1) 100%
+  );
+
+  padding: 16px;
+  border-radius: 5px;
+  width: 90%;
+`;
+
+const Icons = styled.div`
+  display: flex;
+  align-items: center;
+  font-size: 24px;
   cursor: pointer;
 `;
 
 const ListTodos = ({ todos }) => {
-  console.log("td", todos);
+  // console.log("td", todos);
   const localTodos = todos.filter((todo) => todo.todo_id !== null);
   const dispatch = useDispatch();
   // const toEdit = useSelector((state) => state.dashboard.toEdit);
@@ -50,18 +57,17 @@ const ListTodos = ({ todos }) => {
           {localTodos.map((todo) => (
             <StyledLi key={todo.todo_id}>
               {todo.description}
-              <StyledButton
-                type="button"
-                onClick={(e) => handleEditClick(todo.todo_id)}
-              >
-                Edit
-              </StyledButton>
-              <StyledButton
-                type="button"
-                onClick={() => onDeleteClick(todo.todo_id)}
-              >
-                Delete
-              </StyledButton>
+              <Icons>
+                <FaEdit
+                  className="edit-icon"
+                  onClick={(e) => handleEditClick(todo.todo_id)}
+                />
+
+                <AiFillDelete
+                  className="delete-icon"
+                  onClick={() => onDeleteClick(todo.todo_id)}
+                />
+              </Icons>
             </StyledLi>
           ))}
         </StyledUl>

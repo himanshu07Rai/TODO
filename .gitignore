@@ -5,3 +5,5 @@ node_modules
 .metals
 
 .vscode
+
+./client/build

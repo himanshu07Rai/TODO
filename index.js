@@ -9,9 +9,9 @@ app.use(express.json());
 const corsOptions = { origin: process.env.URL || "*" };
 app.use(cors(corsOptions));
 
-// if (process.env.NODE_ENV === "production") {
+//if (process.env.NODE_ENV === "production") {
 app.use(express.static(path.join(__dirname, "client/build")));
-// }
+//}
 
 app.get("/api", (req, res) => {
   res.send("🚀 Server running 🚀");

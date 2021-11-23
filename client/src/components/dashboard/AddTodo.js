@@ -52,7 +52,6 @@ const AddTodo = () => {
   };
   return (
     <>
-      <h2>Add Todo</h2>
       <StyledForm onSubmit={(e) => onSubmit(e)}>
         <StyledInput
           type="text"
@@ -60,7 +59,9 @@ const AddTodo = () => {
           value={description}
           onChange={(e) => dispatch(textChange(e.target.value))}
         />
-        <Button type="submit">Add</Button>
+        <button type="submit" className="todo-button">
+          Add Todo
+        </button>
       </StyledForm>
     </>
   );

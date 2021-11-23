@@ -6,7 +6,6 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   min-height: 100vh;
-  background-color: #f3f3f3;
 `;
 
 const Card = styled.div`
